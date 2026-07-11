@@ -10,4 +10,15 @@ export const siteConfig = {
   hackerRank: "https://hackerrank.com/profile/fabiansojowork",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
+  cvUrl: "/cv/fabian-sojo-cv.pdf",
 } as const;
+
+export const navItems = [
+  { label: "Inicio", href: "/#inicio" },
+  { label: "Sobre mí", href: "/#sobre-mi" },
+  { label: "Experiencia", href: "/#experiencia" },
+  { label: "Proyectos", href: "/projects" },
+  { label: "Tecnologías", href: "/#tecnologias" },
+  { label: "Certificaciones", href: "/#certificaciones" },
+  { label: "Contacto", href: "/#contacto" },
+] as const;
