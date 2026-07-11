@@ -1,0 +1,20 @@
+export type Project = {
+  title: string;
+  slug: string;
+  shortDescription: string;
+  fullDescription: string;
+  coverImage: string;
+  gallery: string[];
+  projectUrl?: string;
+  repositoryUrl?: string;
+  role: string;
+  projectType: string;
+  technologies: string[];
+  contributions: string[];
+  challenges?: string[];
+  solutions?: string[];
+  results?: string[];
+  status: "completed" | "in-progress" | "private";
+  featured: boolean;
+  year: number;
+};
