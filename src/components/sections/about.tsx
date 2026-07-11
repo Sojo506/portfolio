@@ -5,9 +5,11 @@ import { Badge } from "@/components/ui/badge";
 const indicators = [
   "Full Stack Development",
   "Clean Code",
+  "SOLID",
   "Responsive Design",
   "Database Design",
   "Agile Methodologies",
+  "AI-Assisted Development",
   "Continuous Learning",
 ];
 
@@ -33,6 +35,19 @@ export function About() {
               mantenibles y centrados en resolver necesidades reales,
               cuidando tanto la arquitectura del backend como la experiencia
               de quien usa el producto.
+            </p>
+            <p>
+              Tengo experiencia aplicando principios SOLID en .NET,
+              estructurando proyectos en capas (Abstract, DataAccess,
+              BusinessLogic y UI), cada una organizada en carpetas con una
+              única responsabilidad, lo que facilita el mantenimiento y la
+              escalabilidad del código a largo plazo.
+            </p>
+            <p>
+              También incorporo herramientas de inteligencia artificial como
+              Claude Code y Codex dentro de mi flujo de desarrollo, lo que me
+              permite trabajar de forma más eficiente sin perder rigor
+              técnico ni control sobre las decisiones de arquitectura.
             </p>
             <p>
               Mis intereses profesionales incluyen el desarrollo Full Stack,

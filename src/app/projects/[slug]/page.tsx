@@ -7,7 +7,10 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GithubIcon } from "@/components/common/icons";
 import { ProjectStatusBadge } from "@/components/projects/project-status-badge";
+import { JsonLd } from "@/components/common/json-ld";
 import { projects } from "@/data/projects";
+import { siteConfig } from "@/lib/constants";
+import { breadcrumbJsonLd, projectJsonLd } from "@/lib/structured-data";
 import type { Project } from "@/types/project";
 
 type ProjectPageProps = {
@@ -36,6 +39,9 @@ export async function generateMetadata({
   return {
     title: project.title,
     description: project.shortDescription,
+    alternates: {
+      canonical: `/projects/${project.slug}`,
+    },
     openGraph: {
       title: project.title,
       description: project.shortDescription,
@@ -64,6 +70,19 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <article className="mx-auto max-w-4xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+      <JsonLd
+        data={[
+          projectJsonLd(project),
+          breadcrumbJsonLd([
+            { name: "Inicio", url: siteConfig.siteUrl },
+            { name: "Proyectos", url: `${siteConfig.siteUrl}/projects` },
+            {
+              name: project.title,
+              url: `${siteConfig.siteUrl}/projects/${project.slug}`,
+            },
+          ]),
+        ]}
+      />
       <Link
         href="/projects"
         className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"

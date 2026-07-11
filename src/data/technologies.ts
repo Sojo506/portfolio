@@ -14,7 +14,7 @@ export const technologies: TechCategory[] = [
   },
   {
     category: "Backend",
-    items: ["Java", "Spring Boot", "Node.js", "Express"],
+    items: ["Java", "Spring Boot", "Node.js", "Express", ".NET"],
   },
   {
     category: "Bases de datos",
@@ -25,7 +25,15 @@ export const technologies: TechCategory[] = [
     items: ["Prisma", "Sequelize"],
   },
   {
+    category: "Arquitectura y buenas prácticas",
+    items: ["Principios SOLID", "Arquitectura en capas", "Clean Code"],
+  },
+  {
     category: "Herramientas y metodologías",
     items: ["Git", "GitHub", "Scrum"],
+  },
+  {
+    category: "Desarrollo asistido por IA",
+    items: ["Claude Code", "Codex"],
   },
 ];
