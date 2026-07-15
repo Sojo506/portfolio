@@ -50,7 +50,7 @@ const dictionary = {
       paragraphs: [
         "Soy Fabián Sojo, desarrollador Full Stack con base en San José, Costa Rica, y estudiante de Bachillerato en Ingeniería en Sistemas en la Universidad Fidélitas. Tengo experiencia creando aplicaciones web dinámicas y escalables, desde el diseño de la base de datos hasta la interfaz final.",
         "Mi enfoque está en construir productos web modernos, mantenibles y centrados en resolver necesidades reales, cuidando tanto la arquitectura del backend como la experiencia de quien usa el producto.",
-        "Tengo experiencia aplicando principios SOLID en .NET, estructurando proyectos en capas (Abstract, DataAccess, BusinessLogic y UI), cada una organizada en carpetas con una única responsabilidad, lo que facilita el mantenimiento y la escalabilidad del código a largo plazo.",
+        "Aplico principios de diseño limpio y arquitectura por capas en mis proyectos — separando claramente la lógica de negocio, el acceso a datos y la interfaz — lo que facilita el mantenimiento, las pruebas y la escalabilidad del código a largo plazo.",
         "También incorporo herramientas de inteligencia artificial como Claude Code y Codex dentro de mi flujo de desarrollo, lo que me permite trabajar de forma más eficiente sin perder rigor técnico ni control sobre las decisiones de arquitectura.",
         "Mis intereses profesionales incluyen el desarrollo Full Stack, la arquitectura de software, el diseño de bases de datos, la experiencia de usuario y la mejora continua.",
       ],
@@ -236,7 +236,7 @@ const dictionary = {
       paragraphs: [
         "I'm Fabián Sojo, a Full Stack developer based in San José, Costa Rica, and a Systems Engineering undergraduate at Universidad Fidélitas. I have experience building dynamic, scalable web applications, from database design to the final interface.",
         "My focus is on building modern, maintainable web products centered on solving real needs, paying attention to both backend architecture and the experience of whoever uses the product.",
-        "I have experience applying SOLID principles in .NET, structuring projects in layers (Abstract, DataAccess, BusinessLogic, and UI), each organized into folders with a single responsibility, which makes the code easier to maintain and scale long-term.",
+        "I apply clean design principles and layered architecture in my projects — clearly separating business logic, data access, and the interface — which makes the code easier to maintain, test, and scale long-term.",
         "I also bring AI tools like Claude Code and Codex into my development workflow, which lets me work more efficiently without losing technical rigor or control over architectural decisions.",
         "My professional interests include Full Stack development, software architecture, database design, user experience, and continuous learning.",
       ],
