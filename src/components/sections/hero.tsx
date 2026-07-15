@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { GithubIcon, LinkedinIcon } from "@/components/common/icons";
+import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/common/icons";
 import { useLanguage } from "@/components/common/language-provider";
 import { siteConfig } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/dictionary";
@@ -106,6 +106,15 @@ export function Hero() {
               className="transition-colors hover:text-foreground"
             >
               <LinkedinIcon className="h-[18px] w-[18px]" />
+            </a>
+            <a
+              href={siteConfig.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="transition-colors hover:text-foreground"
+            >
+              <InstagramIcon className="h-[18px] w-[18px]" />
             </a>
             <a
               href={`mailto:${siteConfig.email}`}

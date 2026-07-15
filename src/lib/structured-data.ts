@@ -14,7 +14,12 @@ export function personJsonLd() {
       addressLocality: "San José",
       addressCountry: "CR",
     },
-    sameAs: [siteConfig.github, siteConfig.linkedin, siteConfig.hackerRank],
+    sameAs: [
+      siteConfig.github,
+      siteConfig.linkedin,
+      siteConfig.instagram,
+      siteConfig.hackerRank,
+    ],
   };
 }
 
@@ -41,7 +46,7 @@ export function projectJsonLd(project: Project) {
       "@type": "Person",
       name: siteConfig.name,
     },
-    datePublished: `${project.year}`,
+    datePublished: project.date,
   };
 }
 

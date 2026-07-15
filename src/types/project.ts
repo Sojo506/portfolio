@@ -16,5 +16,6 @@ export type Project = {
   results?: string[];
   status: "completed" | "in-progress" | "private";
   featured: boolean;
-  year: number;
+  /** Approximate completion date in "YYYY-MM" format, used to sort projects by recency. */
+  date: string;
 };

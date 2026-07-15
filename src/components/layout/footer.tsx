@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUp, Code2, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { GithubIcon, LinkedinIcon } from "@/components/common/icons";
+import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/common/icons";
 import { navItems, siteConfig } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/dictionary";
 
@@ -45,6 +45,11 @@ export function Footer() {
             <Button asChild variant="ghost" size="icon" aria-label="LinkedIn">
               <a href={siteConfig.linkedin} target="_blank" rel="noopener noreferrer">
                 <LinkedinIcon className="h-4 w-4" />
+              </a>
+            </Button>
+            <Button asChild variant="ghost" size="icon" aria-label="Instagram">
+              <a href={siteConfig.instagram} target="_blank" rel="noopener noreferrer">
+                <InstagramIcon className="h-4 w-4" />
               </a>
             </Button>
             <Button asChild variant="ghost" size="icon" aria-label="HackerRank">
