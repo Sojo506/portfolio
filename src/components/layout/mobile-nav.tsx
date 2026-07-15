@@ -11,12 +11,14 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useLanguage } from "@/components/common/language-provider";
 import { navItems, siteConfig } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/dictionary";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
   const t = useTranslation();
+  const { locale } = useLanguage();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -48,7 +50,7 @@ export function MobileNav() {
             </Link>
           ))}
           <Button asChild className="mt-4">
-            <a href={siteConfig.cvUrl} download onClick={() => setOpen(false)}>
+            <a href={siteConfig.cvUrl[locale]} download onClick={() => setOpen(false)}>
               {t.header.downloadCv}
             </a>
           </Button>

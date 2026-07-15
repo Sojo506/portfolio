@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/common/theme-toggle";
 import { LanguageToggle } from "@/components/common/language-toggle";
 import { MobileNav } from "@/components/layout/mobile-nav";
+import { useLanguage } from "@/components/common/language-provider";
 import { navItems, siteConfig } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/dictionary";
 import { cn } from "@/lib/utils";
@@ -13,6 +14,7 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const t = useTranslation();
+  const { locale } = useLanguage();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -58,7 +60,7 @@ export function Header() {
 
         <div className="flex items-center gap-1.5">
           <Button asChild size="sm" variant="outline" className="hidden md:inline-flex">
-            <a href={siteConfig.cvUrl} download>
+            <a href={siteConfig.cvUrl[locale]} download>
               {t.header.downloadCv}
             </a>
           </Button>

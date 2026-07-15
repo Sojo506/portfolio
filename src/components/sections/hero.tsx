@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GithubIcon, LinkedinIcon } from "@/components/common/icons";
+import { useLanguage } from "@/components/common/language-provider";
 import { siteConfig } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/dictionary";
 
@@ -19,6 +20,7 @@ const fadeUp = {
 
 export function Hero() {
   const t = useTranslation();
+  const { locale } = useLanguage();
 
   return (
     <section
@@ -74,7 +76,7 @@ export function Hero() {
               <a href="#contacto">{t.hero.contactMe}</a>
             </Button>
             <Button asChild size="lg" variant="ghost">
-              <a href={siteConfig.cvUrl} download>
+              <a href={siteConfig.cvUrl[locale]} download>
                 {t.hero.downloadCv}
               </a>
             </Button>
