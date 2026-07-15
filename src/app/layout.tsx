@@ -29,6 +29,10 @@ export const metadata: Metadata = {
     template: `%s — ${siteConfig.brand}`,
   },
   description,
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/icons/apple-touch-icon.png",
+  },
   alternates: {
     canonical: "/",
   },
