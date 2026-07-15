@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, MessageCircle, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -139,29 +139,34 @@ export function ContactForm() {
 
         <div className="space-y-2">
           <Label htmlFor="budget">{t.contactForm.budget}</Label>
-          <Input id="budget" {...form.register("budget")} />
+          <div className="relative">
+            <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-muted-foreground">
+              $
+            </span>
+            <Input id="budget" className="pl-6" {...form.register("budget")} />
+          </div>
         </div>
 
         <div className="space-y-2">
           <Label htmlFor="inquiryType">{t.contactForm.inquiryType}</Label>
-          <Select
-            onValueChange={(value) =>
-              form.setValue("inquiryType", value as ContactFormValues["inquiryType"], {
-                shouldValidate: true,
-              })
-            }
-          >
-            <SelectTrigger id="inquiryType" className="w-full">
-              <SelectValue placeholder={t.contactForm.selectOption} />
-            </SelectTrigger>
-            <SelectContent>
-              {inquiryTypes.map((type) => (
-                <SelectItem key={type} value={type}>
-                  {t.contactForm.inquiryTypeLabels[type]}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Controller
+            control={form.control}
+            name="inquiryType"
+            render={({ field }) => (
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger id="inquiryType" className="w-full">
+                  <SelectValue placeholder={t.contactForm.selectOption} />
+                </SelectTrigger>
+                <SelectContent>
+                  {inquiryTypes.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {t.contactForm.inquiryTypeLabels[type]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
           {form.formState.errors.inquiryType ? (
             <p className="text-xs text-destructive">
               {form.formState.errors.inquiryType.message}
@@ -171,27 +176,24 @@ export function ContactForm() {
 
         <div className="space-y-2">
           <Label htmlFor="preferredContact">{t.contactForm.preferredContact}</Label>
-          <Select
-            defaultValue="Correo electrónico"
-            onValueChange={(value) =>
-              form.setValue(
-                "preferredContact",
-                value as ContactFormValues["preferredContact"],
-                { shouldValidate: true },
-              )
-            }
-          >
-            <SelectTrigger id="preferredContact" className="w-full">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {contactMethods.map((method) => (
-                <SelectItem key={method} value={method}>
-                  {t.contactForm.contactMethodLabels[method]}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Controller
+            control={form.control}
+            name="preferredContact"
+            render={({ field }) => (
+              <Select value={field.value} onValueChange={field.onChange}>
+                <SelectTrigger id="preferredContact" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {contactMethods.map((method) => (
+                    <SelectItem key={method} value={method}>
+                      {t.contactForm.contactMethodLabels[method]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
         </div>
       </div>
 
@@ -209,13 +211,16 @@ export function ContactForm() {
       </div>
 
       <div className="flex items-start gap-2.5">
-        <Checkbox
-          id="acceptPrivacyPolicy"
-          onCheckedChange={(checked) =>
-            form.setValue("acceptPrivacyPolicy", checked === true, {
-              shouldValidate: true,
-            })
-          }
+        <Controller
+          control={form.control}
+          name="acceptPrivacyPolicy"
+          render={({ field }) => (
+            <Checkbox
+              id="acceptPrivacyPolicy"
+              checked={field.value}
+              onCheckedChange={(checked) => field.onChange(checked === true)}
+            />
+          )}
         />
         <Label htmlFor="acceptPrivacyPolicy" className="font-normal text-muted-foreground">
           {t.contactForm.privacyConsent}
