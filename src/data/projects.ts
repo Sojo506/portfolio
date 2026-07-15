@@ -1,6 +1,6 @@
 import type { Project } from "@/types/project";
 
-export const projects: Project[] = [
+const rawProjects: Project[] = [
   {
     title: "Marketplace Full Stack",
     slug: "marketplace-full-stack",
@@ -32,7 +32,7 @@ export const projects: Project[] = [
     ],
     status: "completed",
     featured: true,
-    year: 2023,
+    date: "2023-01",
   },
   {
     title: "Aplicación de Pokémon",
@@ -55,29 +55,7 @@ export const projects: Project[] = [
     ],
     status: "completed",
     featured: true,
-    year: 2023,
-  },
-  {
-    title: "Plataforma de seguridad vial",
-    slug: "plataforma-seguridad-vial",
-    shortDescription:
-      "Aplicación web para recopilar información de usuarios y generar reportes descargables en PDF.",
-    fullDescription:
-      "Aplicación desarrollada en Prama dentro del dominio de seguridad vial, enfocada en la recopilación de información de usuarios y la generación de reportes en PDF.",
-    coverImage: "/projects/placeholder-cover.svg",
-    gallery: ["/projects/placeholder-cover.svg"],
-    role: "Full Stack Developer",
-    // TODO: confirmar y completar tecnologías utilizadas en este proyecto.
-    projectType: "Aplicación web",
-    technologies: [],
-    contributions: [
-      "Implementación de funcionalidades para recopilar información de usuarios.",
-      "Generación de reportes PDF descargables.",
-      "Participación en distintas etapas del ciclo de vida del desarrollo de software.",
-    ],
-    status: "private",
-    featured: false,
-    year: 2023,
+    date: "2023-02",
   },
   {
     title: "Administrador de Pacientes Veterinarios",
@@ -119,7 +97,7 @@ export const projects: Project[] = [
     ],
     status: "completed",
     featured: true,
-    year: 2023,
+    date: "2023-07",
   },
   {
     title: "Plataforma de Pedidos de Comida",
@@ -162,7 +140,7 @@ export const projects: Project[] = [
     ],
     status: "completed",
     featured: true,
-    year: 2024,
+    date: "2024-01",
   },
   {
     title: "Adopciones Kalo",
@@ -204,7 +182,7 @@ export const projects: Project[] = [
     ],
     status: "completed",
     featured: true,
-    year: 2026,
+    date: "2026-01",
   },
   {
     title: "Danceroom",
@@ -237,6 +215,11 @@ export const projects: Project[] = [
     ],
     status: "completed",
     featured: true,
-    year: 2025,
+    date: "2025-01",
   },
 ];
+
+/** Sorted most recent first, so new entries don't need to be inserted in order. */
+export const projects: Project[] = [...rawProjects].sort((a, b) =>
+  b.date.localeCompare(a.date),
+);

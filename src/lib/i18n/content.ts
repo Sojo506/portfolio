@@ -41,18 +41,6 @@ const projectTranslations: Record<string, ProjectTranslation> = {
       "Developed the backend with Node.js, Express, and Sequelize.",
     ],
   },
-  "plataforma-seguridad-vial": {
-    shortDescription:
-      "Web application to collect user information and generate downloadable PDF reports.",
-    fullDescription:
-      "Application built at Prama within the road-safety domain, focused on collecting user information and generating PDF reports.",
-    projectType: "Web application",
-    contributions: [
-      "Implemented features to collect user information.",
-      "Generated downloadable PDF reports.",
-      "Participated in different stages of the software development lifecycle.",
-    ],
-  },
   "administrador-pacientes-veterinarios": {
     shortDescription:
       "Platform for veterinarians that centralizes patient records, with email-based authentication and session-protected routes.",
