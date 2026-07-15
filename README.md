@@ -150,7 +150,7 @@ Define `NEXT_PUBLIC_WHATSAPP_NUMBER` en las variables de entorno, en formato int
 
 - **CV**: falta el PDF real en `public/cv/` (ver arriba).
 - **MDX**: el contenido de los casos de estudio aún no se migró a MDX; vive como texto plano en `projects.ts`.
-- **`public/kalo.png`**: captura de un proyecto ("Kalo") pendiente de agregar como entrada en `projects.ts`.
+- **Repositorio de Danceroom**: los repos (`danceroom-api`, `dancerrom-client`, `danceroom-admin`) son privados en GitHub, por lo que el proyecto no tiene botón de repositorio en el sitio. Si se hacen públicos, agregar `repositoryUrl` a la entrada correspondiente en `projects.ts`.
 - **Brevo**: solo Resend está cableado como proveedor de correo.
 
 ## Diseñado y desarrollado por Fabián Sojo.

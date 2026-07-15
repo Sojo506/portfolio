@@ -18,14 +18,14 @@ type ProjectTranslation = Pick<
 const projectTranslations: Record<string, ProjectTranslation> = {
   "marketplace-full-stack": {
     shortDescription:
-      "Web marketplace with separate roles for users and businesses, product management, search, filters, and sorting.",
+      "Web marketplace with separate roles for users and businesses, a product catalog, online payments, and an analytics dashboard.",
     fullDescription:
-      "Marketplace built during the SoyHenry bootcamp, supporting two account types (user and business), product management, and a complete search and filtering experience.",
+      "Marketplace built by a 9-person team during the SoyHenry bootcamp, supporting two account types (user and business), product management, NextAuth-based authentication, Stripe payments, and a dashboard with sales metrics.",
     projectType: "Marketplace",
     contributions: [
       "Implemented product search, filtering, and sorting.",
       "Managed products and user/business roles.",
-      "Built the frontend with Next.js, Redux Toolkit, and Tailwind CSS.",
+      "Built frontend views with Next.js, Redux Toolkit, and Tailwind CSS.",
       "Modeled data and persistence with PostgreSQL and Prisma.",
     ],
   },
@@ -51,6 +51,79 @@ const projectTranslations: Record<string, ProjectTranslation> = {
       "Implemented features to collect user information.",
       "Generated downloadable PDF reports.",
       "Participated in different stages of the software development lifecycle.",
+    ],
+  },
+  "administrador-pacientes-veterinarios": {
+    shortDescription:
+      "Platform for veterinarians that centralizes patient records, with email-based authentication and session-protected routes.",
+    fullDescription:
+      "Full-stack web application for veterinary clinics. Lets veterinarians register, confirm their account by email, log in, and manage their patients' records from a protected dashboard, including password recovery.",
+    projectType: "Web application",
+    contributions: [
+      "Implemented the authentication flow: registration, email account confirmation, login, and password recovery.",
+      "Built the patient CRUD (create, edit, delete, and list) with validated forms.",
+      "Modeled data in MongoDB with Mongoose for veterinarians and patients.",
+      "Protected frontend routes based on session state and backend endpoints with JWT middleware.",
+    ],
+    challenges: [
+      "Reliably coordinating the transactional emails for account confirmation and password recovery.",
+    ],
+    solutions: [
+      "Centralized email sending in dedicated utilities decoupled from the controllers, making them easier to maintain.",
+    ],
+  },
+  "plataforma-pedidos-comida": {
+    shortDescription:
+      "Food ordering platform with a shopping cart, online payments, and an admin panel to manage the menu and orders.",
+    fullDescription:
+      "Full-stack application made up of three parts: a customer site where users browse the menu, build their cart, and pay online; an admin panel to manage products and orders; and a REST API that centralizes the business logic and data.",
+    projectType: "Web application",
+    contributions: [
+      "Built the product catalog, shopping cart, and checkout flow on the frontend with React.",
+      "Integrated online payments with Stripe.",
+      "Built the admin panel to manage the menu (add, edit, and remove products) and view orders.",
+      "Designed the REST API with Express and modeled data in MongoDB for users, products, and orders.",
+      "Implemented user authentication with JWT and product image uploads with Multer.",
+    ],
+    challenges: [
+      "Keeping the shopping cart state in sync between the user's session and the backend before confirming payment.",
+    ],
+    solutions: [
+      "Centralized the cart state in a React context that syncs with the API before starting the Stripe checkout.",
+    ],
+  },
+  "adopciones-kalo": {
+    shortDescription:
+      "Pet adoption platform with post-adoption tracking, donation campaigns, a charity store, and a full admin dashboard.",
+    fullDescription:
+      "Full-stack platform for a pet adoption organization. Covers the whole cycle: public browsing of available dogs, adoption requests with dynamic questions, post-adoption tracking with evidence uploads and admin approval, PayPal-powered donation campaigns, a charity store with cart and checkout, and an admin dashboard with CRUDs and PDF reports. The backend runs on Oracle Database with its own PL/SQL procedures.",
+    projectType: "Web application",
+    contributions: [
+      "Implemented the authentication flow with email verification and OTP-based password recovery.",
+      "Built adoption requests with dynamic forms and post-adoption tracking with evidence uploads.",
+      "Integrated PayPal for donation campaigns and charity store checkout.",
+      "Built the admin dashboard with CRUDs and PDF report generation.",
+      "Designed the Oracle Database schema, including the project's own PL/SQL functions and procedures.",
+    ],
+    challenges: [
+      "Keeping sessions secure and revocable, and notifying forced logout in real time across open tabs.",
+    ],
+    solutions: [
+      "Implemented access JWTs alongside refresh tokens persisted in the database, plus an SSE channel that notifies forced logout instantly.",
+    ],
+  },
+  danceroom: {
+    shortDescription:
+      "Platform for an electronic music collective: events, collaborators, seasonal sets, and a merch store, with an admin panel.",
+    fullDescription:
+      "Full-stack platform for an electronic music event collective. Includes a landing page with events and collaborators (DJs), a per-event gallery, seasonal audio sets, a merch store with cart and checkout, a user profile with purchase history, and a separate admin panel to manage categories, events and their gallery, collaborators, products, orders, seasons, and statistics. The backend is a Java Spring Boot API organized by domain (controller/service/repository/entity), with its own authentication and Firebase image storage.",
+    projectType: "Web application",
+    contributions: [
+      "Built the public site: events, gallery, collaborators, seasonal sets, and the merch store.",
+      "Implemented the shopping cart, checkout, and user order tracking.",
+      "Built the admin panel (a separate project) to manage events, collaborators, products, orders, and statistics.",
+      "Developed the Java Spring Boot API, organized by domain, including authentication and collaborator/event management.",
+      "Integrated Firebase for event and product image storage.",
     ],
   },
 };
