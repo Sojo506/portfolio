@@ -12,9 +12,11 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { navItems, siteConfig } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/dictionary";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
+  const t = useTranslation();
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
@@ -22,7 +24,7 @@ export function MobileNav() {
         <Button
           variant="ghost"
           size="icon"
-          aria-label="Abrir menú de navegación"
+          aria-label={t.header.openMenu}
           className="md:hidden"
         >
           <Menu className="h-5 w-5" />
@@ -42,12 +44,12 @@ export function MobileNav() {
               onClick={() => setOpen(false)}
               className="rounded-md px-3 py-2.5 text-sm font-medium text-foreground/80 transition-colors hover:bg-accent hover:text-foreground"
             >
-              {item.label}
+              {t.nav[item.key]}
             </Link>
           ))}
           <Button asChild className="mt-4">
             <a href={siteConfig.cvUrl} download onClick={() => setOpen(false)}>
-              Descargar CV
+              {t.header.downloadCv}
             </a>
           </Button>
         </nav>

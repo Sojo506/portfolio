@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { SectionHeading } from "@/components/common/section-heading";
 import { ProjectFilter } from "@/components/projects/project-filter";
+import { ProjectsHeading } from "@/components/projects/projects-heading";
 import { JsonLd } from "@/components/common/json-ld";
 import { projects } from "@/data/projects";
 import { siteConfig } from "@/lib/constants";
@@ -24,11 +24,7 @@ export default function ProjectsPage() {
           { name: "Proyectos", url: `${siteConfig.siteUrl}/projects` },
         ])}
       />
-      <SectionHeading
-        eyebrow="Proyectos"
-        title="Todos los proyectos"
-        description="Cada proyecto detalla mi rol, mis aportes y las decisiones técnicas detrás de la solución."
-      />
+      <ProjectsHeading />
       <div className="mt-12">
         <ProjectFilter projects={projects} />
       </div>

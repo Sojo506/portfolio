@@ -7,21 +7,27 @@ import { FadeIn } from "@/components/common/fade-in";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { certifications } from "@/data/certifications";
+import { useLanguage } from "@/components/common/language-provider";
+import { useTranslation } from "@/lib/i18n/dictionary";
+import { translateCertifications } from "@/lib/i18n/content";
 
 const INITIAL_COUNT = 4;
 
 export function Certifications() {
   const [expanded, setExpanded] = useState(false);
-  const visible = expanded ? certifications : certifications.slice(0, INITIAL_COUNT);
+  const { locale } = useLanguage();
+  const t = useTranslation();
+  const items = translateCertifications(certifications, locale);
+  const visible = expanded ? items : items.slice(0, INITIAL_COUNT);
 
   return (
     <section id="certificaciones" className="border-b">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <FadeIn>
           <SectionHeading
-            eyebrow="Certificaciones"
-            title="Certificaciones e insignias"
-            description="Formación complementaria en agilidad, bases de datos, Java/Spring y fundamentos de tecnología."
+            eyebrow={t.certifications.eyebrow}
+            title={t.certifications.title}
+            description={t.certifications.description}
           />
         </FadeIn>
 
@@ -34,7 +40,7 @@ export function Certifications() {
                   <div className="flex flex-wrap items-center gap-2">
                     <p className="text-sm font-medium">{item.name}</p>
                     <Badge variant="outline" className="font-normal">
-                      {item.type === "badge" ? "Insignia" : "Certificación"}
+                      {item.type === "badge" ? t.certifications.badge : t.certifications.certification}
                     </Badge>
                   </div>
                   <p className="mt-1 text-xs text-muted-foreground">
@@ -49,7 +55,7 @@ export function Certifications() {
                       className="mt-1 h-auto gap-1 px-0"
                     >
                       <a href={item.verificationUrl} target="_blank" rel="noopener noreferrer">
-                        Ver credencial <ExternalLink className="h-3 w-3" />
+                        {t.certifications.viewCredential} <ExternalLink className="h-3 w-3" />
                       </a>
                     </Button>
                   ) : null}
@@ -59,10 +65,10 @@ export function Certifications() {
           ))}
         </div>
 
-        {certifications.length > INITIAL_COUNT ? (
+        {items.length > INITIAL_COUNT ? (
           <div className="mt-8">
             <Button variant="outline" onClick={() => setExpanded((prev) => !prev)}>
-              {expanded ? "Ver menos" : `Ver todas (${certifications.length})`}
+              {expanded ? t.certifications.showLess : t.certifications.showAll(items.length)}
             </Button>
           </div>
         ) : null}

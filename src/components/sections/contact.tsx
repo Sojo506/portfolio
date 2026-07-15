@@ -1,18 +1,23 @@
+"use client";
+
 import { Mail, MapPin, MessageCircle } from "lucide-react";
 import { SectionHeading } from "@/components/common/section-heading";
 import { FadeIn } from "@/components/common/fade-in";
 import { ContactForm } from "@/components/contact/contact-form";
 import { siteConfig } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/dictionary";
 
 export function Contact() {
+  const t = useTranslation();
+
   return (
     <section id="contacto">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <FadeIn>
           <SectionHeading
-            eyebrow="Contacto"
-            title="Hablemos de tu proyecto"
-            description="Cuéntame qué necesitas y te responderé lo antes posible por el medio que prefieras."
+            eyebrow={t.contact.eyebrow}
+            title={t.contact.title}
+            description={t.contact.description}
           />
         </FadeIn>
 
@@ -21,7 +26,7 @@ export function Contact() {
             <div className="flex items-start gap-3">
               <Mail className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
               <div>
-                <p className="text-sm font-medium">Correo</p>
+                <p className="text-sm font-medium">{t.contact.email}</p>
                 <a
                   href={`mailto:${siteConfig.email}`}
                   className="text-sm text-muted-foreground hover:text-foreground"
@@ -33,7 +38,7 @@ export function Contact() {
             <div className="flex items-start gap-3">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
               <div>
-                <p className="text-sm font-medium">Ubicación</p>
+                <p className="text-sm font-medium">{t.contact.location}</p>
                 <p className="text-sm text-muted-foreground">{siteConfig.location}</p>
               </div>
             </div>
@@ -41,14 +46,14 @@ export function Contact() {
               <div className="flex items-start gap-3">
                 <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" />
                 <div>
-                  <p className="text-sm font-medium">WhatsApp</p>
+                  <p className="text-sm font-medium">{t.contact.whatsapp}</p>
                   <a
                     href={`https://wa.me/${siteConfig.whatsappNumber}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-sm text-muted-foreground hover:text-foreground"
                   >
-                    Hablemos por WhatsApp
+                    {t.contact.whatsappCta}
                   </a>
                 </div>
               </div>

@@ -10,10 +10,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useMounted } from "@/lib/use-mounted";
+import { useTranslation } from "@/lib/i18n/dictionary";
 
 export function ThemeToggle() {
   const { setTheme } = useTheme();
   const mounted = useMounted();
+  const t = useTranslation();
 
   return (
     <DropdownMenu>
@@ -21,7 +23,7 @@ export function ThemeToggle() {
         <Button
           variant="ghost"
           size="icon"
-          aria-label="Cambiar tema"
+          aria-label={t.theme.changeTheme}
           className="h-9 w-9"
         >
           {mounted ? (
@@ -36,13 +38,13 @@ export function ThemeToggle() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={() => setTheme("light")}>
-          Claro
+          {t.theme.light}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("dark")}>
-          Oscuro
+          {t.theme.dark}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme("system")}>
-          Sistema
+          {t.theme.system}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

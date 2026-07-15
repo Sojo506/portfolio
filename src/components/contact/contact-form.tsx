@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, MessageCircle, Send } from "lucide-react";
@@ -17,8 +17,10 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { siteConfig } from "@/lib/constants";
+import { useLanguage } from "@/components/common/language-provider";
+import { useTranslation } from "@/lib/i18n/dictionary";
 import {
-  contactFormSchema,
+  getContactFormSchema,
   contactMethods,
   inquiryTypes,
   type ContactFormValues,
@@ -26,28 +28,16 @@ import {
 
 type SubmitState = "idle" | "submitting" | "success" | "error";
 
-function buildWhatsappMessage(values: ContactFormValues) {
-  const lines = [
-    `Hola Fabián, mi nombre es ${values.name}.`,
-    "",
-    `Me gustaría conversar sobre: ${values.inquiryType}.`,
-    "",
-    values.company ? `Empresa: ${values.company}` : null,
-    values.budget ? `Presupuesto estimado: ${values.budget}` : null,
-    "",
-    "Mensaje:",
-    values.message,
-  ].filter((line) => line !== null);
-
-  return lines.join("\n");
-}
-
 export function ContactForm() {
   const [state, setState] = useState<SubmitState>("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const { locale } = useLanguage();
+  const t = useTranslation();
+
+  const schema = useMemo(() => getContactFormSchema(locale), [locale]);
 
   const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactFormSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       name: "",
       email: "",
@@ -61,14 +51,29 @@ export function ContactForm() {
 
   const preferredContact = form.watch("preferredContact");
 
+  function buildWhatsappMessage(values: ContactFormValues) {
+    const inquiryLabel = t.contactForm.inquiryTypeLabels[values.inquiryType];
+    const lines = [
+      t.contactForm.whatsappMessage.greeting(values.name),
+      "",
+      t.contactForm.whatsappMessage.topic(inquiryLabel),
+      "",
+      values.company ? t.contactForm.whatsappMessage.company(values.company) : null,
+      values.budget ? t.contactForm.whatsappMessage.budget(values.budget) : null,
+      "",
+      t.contactForm.whatsappMessage.messageLabel,
+      values.message,
+    ].filter((line) => line !== null);
+
+    return lines.join("\n");
+  }
+
   async function onSubmit(values: ContactFormValues) {
     setErrorMessage(null);
 
     if (values.preferredContact === "WhatsApp") {
       if (!siteConfig.whatsappNumber) {
-        setErrorMessage(
-          "El número de WhatsApp no está configurado. Escríbeme por correo mientras tanto.",
-        );
+        setErrorMessage(t.contactForm.whatsappNotConfigured);
         return;
       }
       const text = encodeURIComponent(buildWhatsappMessage(values));
@@ -88,16 +93,14 @@ export function ContactForm() {
 
       if (!response.ok) {
         const data = await response.json().catch(() => null);
-        throw new Error(data?.error ?? "No se pudo enviar el mensaje.");
+        throw new Error(data?.error ?? t.contactForm.genericError);
       }
 
       setState("success");
       form.reset();
     } catch (error) {
       setState("error");
-      setErrorMessage(
-        error instanceof Error ? error.message : "No se pudo enviar el mensaje.",
-      );
+      setErrorMessage(error instanceof Error ? error.message : t.contactForm.genericError);
     }
   }
 
@@ -109,7 +112,7 @@ export function ContactForm() {
     >
       <div className="grid gap-6 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="name">Nombre</Label>
+          <Label htmlFor="name">{t.contactForm.name}</Label>
           <Input id="name" {...form.register("name")} aria-invalid={!!form.formState.errors.name} />
           {form.formState.errors.name ? (
             <p className="text-xs text-destructive">{form.formState.errors.name.message}</p>
@@ -117,7 +120,7 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">Correo electrónico</Label>
+          <Label htmlFor="email">{t.contactForm.email}</Label>
           <Input
             id="email"
             type="email"
@@ -130,17 +133,17 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="company">Empresa (opcional)</Label>
+          <Label htmlFor="company">{t.contactForm.company}</Label>
           <Input id="company" {...form.register("company")} />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="budget">Presupuesto estimado (opcional)</Label>
+          <Label htmlFor="budget">{t.contactForm.budget}</Label>
           <Input id="budget" {...form.register("budget")} />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="inquiryType">Tipo de consulta</Label>
+          <Label htmlFor="inquiryType">{t.contactForm.inquiryType}</Label>
           <Select
             onValueChange={(value) =>
               form.setValue("inquiryType", value as ContactFormValues["inquiryType"], {
@@ -149,12 +152,12 @@ export function ContactForm() {
             }
           >
             <SelectTrigger id="inquiryType" className="w-full">
-              <SelectValue placeholder="Selecciona una opción" />
+              <SelectValue placeholder={t.contactForm.selectOption} />
             </SelectTrigger>
             <SelectContent>
               {inquiryTypes.map((type) => (
                 <SelectItem key={type} value={type}>
-                  {type}
+                  {t.contactForm.inquiryTypeLabels[type]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -167,7 +170,7 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="preferredContact">Método de contacto preferido</Label>
+          <Label htmlFor="preferredContact">{t.contactForm.preferredContact}</Label>
           <Select
             defaultValue="Correo electrónico"
             onValueChange={(value) =>
@@ -184,7 +187,7 @@ export function ContactForm() {
             <SelectContent>
               {contactMethods.map((method) => (
                 <SelectItem key={method} value={method}>
-                  {method}
+                  {t.contactForm.contactMethodLabels[method]}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -193,7 +196,7 @@ export function ContactForm() {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="message">Mensaje</Label>
+        <Label htmlFor="message">{t.contactForm.message}</Label>
         <Textarea
           id="message"
           rows={5}
@@ -215,7 +218,7 @@ export function ContactForm() {
           }
         />
         <Label htmlFor="acceptPrivacyPolicy" className="font-normal text-muted-foreground">
-          Acepto la política de privacidad y el uso de mis datos para responder este mensaje.
+          {t.contactForm.privacyConsent}
         </Label>
       </div>
       {form.formState.errors.acceptPrivacyPolicy ? (
@@ -232,14 +235,14 @@ export function ContactForm() {
         ) : (
           <Send className="h-4 w-4" />
         )}
-        {state === "submitting" ? "Enviando..." : "Enviar mensaje"}
+        {state === "submitting" ? t.contactForm.sending : t.contactForm.submit}
       </Button>
 
       {state === "success" ? (
         <p className="text-sm text-emerald-600 dark:text-emerald-400">
           {preferredContact === "WhatsApp"
-            ? "Se abrió WhatsApp con tu mensaje. ¡Gracias por escribirme!"
-            : "Mensaje enviado correctamente. Te responderé lo antes posible."}
+            ? t.contactForm.successWhatsapp
+            : t.contactForm.successEmail}
         </p>
       ) : null}
       {state === "error" ? (

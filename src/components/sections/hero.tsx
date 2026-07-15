@@ -6,6 +6,7 @@ import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GithubIcon, LinkedinIcon } from "@/components/common/icons";
 import { siteConfig } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/dictionary";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 16 },
@@ -17,6 +18,8 @@ const fadeUp = {
 };
 
 export function Hero() {
+  const t = useTranslation();
+
   return (
     <section
       id="inicio"
@@ -31,7 +34,7 @@ export function Hero() {
             variants={fadeUp}
             className="text-sm font-medium tracking-[0.14em] text-muted-foreground uppercase"
           >
-            Full Stack Developer · San José, Costa Rica
+            {t.hero.tag}
           </motion.p>
 
           <motion.h1
@@ -41,8 +44,7 @@ export function Hero() {
             variants={fadeUp}
             className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
           >
-            Construyo soluciones digitales funcionales, escalables y pensadas
-            para resolver problemas reales.
+            {t.hero.title}
           </motion.h1>
 
           <motion.p
@@ -52,10 +54,7 @@ export function Hero() {
             variants={fadeUp}
             className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
           >
-            Soy Fabián Sojo, desarrollador Full Stack y estudiante de
-            Ingeniería en Sistemas. Diseño y desarrollo aplicaciones web
-            modernas, combinando interfaces cuidadas, arquitecturas
-            mantenibles y tecnologías actuales.
+            {t.hero.description}
           </motion.p>
 
           <motion.div
@@ -67,16 +66,16 @@ export function Hero() {
           >
             <Button asChild size="lg" className="gap-1.5">
               <Link href="/projects">
-                Ver proyectos
+                {t.hero.viewProjects}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
             <Button asChild size="lg" variant="outline">
-              <a href="#contacto">Contactarme</a>
+              <a href="#contacto">{t.hero.contactMe}</a>
             </Button>
             <Button asChild size="lg" variant="ghost">
               <a href={siteConfig.cvUrl} download>
-                Descargar CV
+                {t.hero.downloadCv}
               </a>
             </Button>
           </motion.div>
@@ -108,7 +107,7 @@ export function Hero() {
             </a>
             <a
               href={`mailto:${siteConfig.email}`}
-              aria-label="Correo electrónico"
+              aria-label={t.hero.email}
               className="transition-colors hover:text-foreground"
             >
               <Mail className="h-[18px] w-[18px]" />
@@ -152,7 +151,7 @@ export function Hero() {
 
           <div className="mt-6 flex items-center gap-2 border-t pt-4 text-xs text-muted-foreground">
             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
-            Disponible para nuevos proyectos
+            {t.hero.available}
           </div>
         </motion.div>
       </div>

@@ -5,9 +5,11 @@ import { ArrowUp, Code2, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { GithubIcon, LinkedinIcon } from "@/components/common/icons";
 import { navItems, siteConfig } from "@/lib/constants";
+import { useTranslation } from "@/lib/i18n/dictionary";
 
 export function Footer() {
   const year = new Date().getFullYear();
+  const t = useTranslation();
 
   return (
     <footer className="border-t">
@@ -18,7 +20,7 @@ export function Footer() {
               {siteConfig.brand}
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              {siteConfig.name} — {siteConfig.titleEs}
+              {siteConfig.name} — {t.footer.tagline}
             </p>
           </div>
 
@@ -29,7 +31,7 @@ export function Footer() {
                 href={item.href}
                 className="text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
-                {item.label}
+                {t.nav[item.key]}
               </Link>
             ))}
           </nav>
@@ -50,7 +52,7 @@ export function Footer() {
                 <Code2 className="h-4 w-4" />
               </a>
             </Button>
-            <Button asChild variant="ghost" size="icon" aria-label="Correo electrónico">
+            <Button asChild variant="ghost" size="icon" aria-label={t.footer.email}>
               <a href={`mailto:${siteConfig.email}`}>
                 <Mail className="h-4 w-4" />
               </a>
@@ -60,9 +62,9 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col-reverse items-center justify-between gap-4 border-t pt-6 sm:flex-row">
           <p className="text-xs text-muted-foreground">
-            © {year} {siteConfig.brand}. Todos los derechos reservados.
+            © {year} {siteConfig.brand}. {t.footer.rightsReserved}
             <span className="block sm:inline sm:ml-1">
-              Diseñado y desarrollado por {siteConfig.name}.
+              {t.footer.designedBy(siteConfig.name)}
             </span>
           </p>
           <Button
@@ -72,7 +74,7 @@ export function Footer() {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             <ArrowUp className="h-3.5 w-3.5" />
-            Volver arriba
+            {t.footer.backToTop}
           </Button>
         </div>
       </div>

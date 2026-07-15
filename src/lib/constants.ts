@@ -14,11 +14,11 @@ export const siteConfig = {
 } as const;
 
 export const navItems = [
-  { label: "Inicio", href: "/#inicio" },
-  { label: "Sobre mí", href: "/about" },
-  { label: "Experiencia", href: "/#experiencia" },
-  { label: "Proyectos", href: "/projects" },
-  { label: "Tecnologías", href: "/#tecnologias" },
-  { label: "Certificaciones", href: "/#certificaciones" },
-  { label: "Contacto", href: "/contact" },
+  { key: "home", href: "/#inicio" },
+  { key: "about", href: "/about" },
+  { key: "experience", href: "/#experiencia" },
+  { key: "projects", href: "/projects" },
+  { key: "technologies", href: "/#tecnologias" },
+  { key: "certifications", href: "/#certificaciones" },
+  { key: "contact", href: "/contact" },
 ] as const;

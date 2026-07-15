@@ -1,30 +1,42 @@
+"use client";
+
 import { SectionHeading } from "@/components/common/section-heading";
 import { FadeIn } from "@/components/common/fade-in";
 import { Badge } from "@/components/ui/badge";
 import { experience } from "@/data/experience";
-
-function formatPeriod(start: string, end: string) {
-  const format = (value: string) => {
-    const [year, month] = value.split("-");
-    const date = new Date(Number(year), Number(month) - 1);
-    return date.toLocaleDateString("es-CR", { month: "long", year: "numeric" });
-  };
-  return `${format(start)} – ${format(end)}`;
-}
+import { useLanguage } from "@/components/common/language-provider";
+import { useTranslation } from "@/lib/i18n/dictionary";
+import { translateExperience } from "@/lib/i18n/content";
 
 export function Experience() {
+  const { locale } = useLanguage();
+  const t = useTranslation();
+  const items = translateExperience(experience, locale);
+
+  function formatPeriod(start: string, end: string) {
+    const format = (value: string) => {
+      const [year, month] = value.split("-");
+      const date = new Date(Number(year), Number(month) - 1);
+      return date.toLocaleDateString(t.experience.dateLocale, {
+        month: "long",
+        year: "numeric",
+      });
+    };
+    return `${format(start)} – ${format(end)}`;
+  }
+
   return (
     <section id="experiencia" className="border-b">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
         <FadeIn>
           <SectionHeading
-            eyebrow="Experiencia"
-            title="Trayectoria profesional"
+            eyebrow={t.experience.eyebrow}
+            title={t.experience.title}
           />
         </FadeIn>
 
         <div className="mt-12 space-y-10">
-          {experience.map((item, index) => (
+          {items.map((item, index) => (
             <FadeIn key={item.company} delay={index * 0.08}>
               <div className="grid gap-2 border-l pl-6 sm:grid-cols-[220px_1fr] sm:gap-8">
                 <div>

@@ -4,9 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project status
 
-This repository currently contains **no source code** — only `guia-portfolio.md`, a detailed Spanish-language specification for a personal portfolio site that has not yet been scaffolded. There is no `package.json`, `src/`, build config, or tests yet. Treat `guia-portfolio.md` as the authoritative product/design brief; consult it before making architectural or content decisions, and don't contradict it without flagging the conflict to the user.
+The site is scaffolded and largely built out: all 5 required routes, the full data layer, the contact form (email + WhatsApp), theming, and SEO are implemented and working (`pnpm lint` and `pnpm build` both pass clean). Treat `guia-portfolio.md` as the authoritative product/design brief; consult it before making architectural or content decisions, and don't contradict it without flagging the conflict to the user.
 
-Since nothing is built yet, there are no lint/build/test commands to run. Once the project is scaffolded (see stack below), the spec requires that at minimum `pnpm lint` and `pnpm build` pass cleanly with no TypeScript or ESLint errors before any phase is considered done.
+Known open gaps (see `README.md` for details): no MDX case-study content yet (case studies live entirely in `src/data/projects.ts`), no CV PDF at `public/cv/fabian-sojo-cv.pdf`, and a "Kalo" project screenshot (`public/kalo.png`) sitting unused pending a `projects.ts` entry.
+
+Run `pnpm lint` and `pnpm build` before considering any change done — both must pass with no TypeScript or ESLint errors.
 
 ## What this project is
 
@@ -67,3 +69,7 @@ All fields validated with Zod; form must show clear loading/success/error states
 - Accessibility: keyboard nav, visible focus states, semantic HTML, alt text, skip-to-content link, accessible form errors.
 - Fully responsive (phones through wide desktop), not just scaled-down.
 - Content (experience, projects, tech, education, certifications) must be editable via the `src/data/` files without touching component code.
+
+## Language toggle (ES/EN)
+
+Not in the original spec — added as a client-side ES/EN toggle (not route-based i18n, no `/en` URLs). Architecture: `LanguageProvider` (`src/components/common/language-provider.tsx`) holds the current `Locale` in React context, persisted to `localStorage`, default `"es"`. Static UI copy lives in `src/lib/i18n/dictionary.ts` (`useTranslation()` hook); translated overrides for `src/data/*.ts` content live in `src/lib/i18n/content.ts` (`translateProject`, `translateExperience`, etc. — keyed by slug/company/institution so the Spanish data files stay the single source of truth). Because toggling must update visible text instantly without a route change, any component rendering translatable text is a Client Component — this is an intentional exception to "Server Components by default" for this feature only. Known limitation: page `<title>`/meta description and JSON-LD stay in Spanish regardless of the toggle (they're server-rendered before the client locale is known).

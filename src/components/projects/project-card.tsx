@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -5,9 +7,16 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GithubIcon } from "@/components/common/icons";
 import { ProjectStatusBadge } from "@/components/projects/project-status-badge";
+import { useLanguage } from "@/components/common/language-provider";
+import { useTranslation } from "@/lib/i18n/dictionary";
+import { translateProject } from "@/lib/i18n/content";
 import type { Project } from "@/types/project";
 
-export function ProjectCard({ project }: { project: Project }) {
+export function ProjectCard({ project: rawProject }: { project: Project }) {
+  const { locale } = useLanguage();
+  const t = useTranslation();
+  const project = translateProject(rawProject, locale);
+
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-xl border transition-colors hover:border-foreground/30">
       <Link
@@ -53,19 +62,19 @@ export function ProjectCard({ project }: { project: Project }) {
 
         <div className="mt-auto flex flex-wrap items-center gap-2 pt-2">
           <Button asChild size="sm" variant="outline">
-            <Link href={`/projects/${project.slug}`}>Ver caso de estudio</Link>
+            <Link href={`/projects/${project.slug}`}>{t.projectCard.viewCaseStudy}</Link>
           </Button>
           {project.projectUrl ? (
             <Button asChild size="sm" variant="ghost" className="gap-1">
               <a href={project.projectUrl} target="_blank" rel="noopener noreferrer">
-                Sitio <ArrowUpRight className="h-3.5 w-3.5" />
+                {t.projectCard.site} <ArrowUpRight className="h-3.5 w-3.5" />
               </a>
             </Button>
           ) : null}
           {project.repositoryUrl ? (
             <Button asChild size="sm" variant="ghost" className="gap-1">
               <a href={project.repositoryUrl} target="_blank" rel="noopener noreferrer">
-                <GithubIcon className="h-3.5 w-3.5" /> Repositorio
+                <GithubIcon className="h-3.5 w-3.5" /> {t.projectCard.repository}
               </a>
             </Button>
           ) : null}

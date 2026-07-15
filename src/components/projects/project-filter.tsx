@@ -3,9 +3,11 @@
 import { useMemo, useState } from "react";
 import { ProjectCard } from "@/components/projects/project-card";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "@/lib/i18n/dictionary";
 import type { Project } from "@/types/project";
 
 export function ProjectFilter({ projects }: { projects: Project[] }) {
+  const t = useTranslation();
   const technologies = useMemo(() => {
     const set = new Set<string>();
     for (const project of projects) {
@@ -28,7 +30,7 @@ export function ProjectFilter({ projects }: { projects: Project[] }) {
           variant={activeFilter === null ? "default" : "outline"}
           onClick={() => setActiveFilter(null)}
         >
-          Todos
+          {t.projectFilter.all}
         </Button>
         {technologies.map((tech) => (
           <Button
@@ -50,7 +52,7 @@ export function ProjectFilter({ projects }: { projects: Project[] }) {
         </div>
       ) : (
         <p className="mt-10 text-sm text-muted-foreground">
-          No hay proyectos que coincidan con este filtro.
+          {t.projectFilter.noResults}
         </p>
       )}
     </div>
