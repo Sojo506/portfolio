@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 The site is scaffolded and largely built out: all 5 required routes, the full data layer, the contact form (email + WhatsApp), theming, and SEO are implemented and working (`pnpm lint` and `pnpm build` both pass clean). Treat `guia-portfolio.md` as the authoritative product/design brief; consult it before making architectural or content decisions, and don't contradict it without flagging the conflict to the user.
 
-Known open gaps (see `README.md` for details): no MDX case-study content yet (case studies live entirely in `src/data/projects.ts`), no CV PDF at `public/cv/fabian-sojo-cv.pdf`, and a "Kalo" project screenshot (`public/kalo.png`) sitting unused pending a `projects.ts` entry.
+Known open gaps (see `README.md` for details): no MDX case-study content yet (case studies live entirely in `src/data/projects.ts`).
 
 Run `pnpm lint` and `pnpm build` before considering any change done — both must pass with no TypeScript or ESLint errors.
 

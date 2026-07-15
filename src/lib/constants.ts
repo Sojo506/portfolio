@@ -8,7 +8,7 @@ export const siteConfig = {
   github: "https://github.com/Sojo506",
   linkedin: "https://linkedin.com/in/fsojodev",
   hackerRank: "https://hackerrank.com/profile/fabiansojowork",
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "",
   cvUrl: {
     es: "/cv/CV_Fabian_Sojo_ES.pdf",

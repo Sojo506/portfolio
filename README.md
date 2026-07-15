@@ -39,7 +39,7 @@ cp .env.example .env.local
 | `NEXT_PUBLIC_WHATSAPP_NUMBER` | Número de WhatsApp en formato internacional sin símbolos ni espacios (ej. `50688888888`) |
 | `CONTACT_EMAIL` | Dirección de destino del formulario de contacto |
 | `RESEND_API_KEY` | API key de [Resend](https://resend.com), si se usa como proveedor de correo |
-| `BREVO_API_KEY` | API key de [Brevo](https://www.brevo.com), proveedor alternativo (no está cableado aún, ver más abajo) |
+| `BREVO_API_KEY` | API key de [Brevo](https://www.brevo.com), proveedor alternativo |
 
 Solo se necesita una de las dos claves de proveedor de correo. Sin ninguna configurada, el envío por correo responde con un error controlado (503) pero el sitio sigue funcionando normalmente, incluyendo el envío por WhatsApp.
 
@@ -138,9 +138,8 @@ Edita `siteConfig` en `src/lib/constants.ts` (nombre, marca, título, ubicación
 
 ### Cómo configurar el correo
 
-1. Crea una cuenta en [Resend](https://resend.com) (proveedor actualmente implementado en `src/app/api/contact/route.ts`) y genera una API key.
-2. Define `RESEND_API_KEY` y `CONTACT_EMAIL` en las variables de entorno.
-3. La integración con Brevo está contemplada en la especificación como alternativa, pero no está implementada todavía; añadirla requeriría una rama adicional en `route.ts`.
+1. Crea una cuenta en [Resend](https://resend.com) o [Brevo](https://www.brevo.com) (ambos están implementados en `src/app/api/contact/route.ts`) y genera una API key. En Brevo, `CONTACT_EMAIL` debe ser un remitente verificado en tu cuenta.
+2. Define `CONTACT_EMAIL` y una de las dos claves (`RESEND_API_KEY` o `BREVO_API_KEY`) en las variables de entorno. Si defines ambas, se usa Resend.
 
 ### Cómo configurar WhatsApp
 
@@ -148,9 +147,7 @@ Define `NEXT_PUBLIC_WHATSAPP_NUMBER` en las variables de entorno, en formato int
 
 ## Gaps conocidos
 
-- **CV**: falta el PDF real en `public/cv/` (ver arriba).
 - **MDX**: el contenido de los casos de estudio aún no se migró a MDX; vive como texto plano en `projects.ts`.
 - **Repositorio de Danceroom**: los repos (`danceroom-api`, `dancerrom-client`, `danceroom-admin`) son privados en GitHub, por lo que el proyecto no tiene botón de repositorio en el sitio. Si se hacen públicos, agregar `repositoryUrl` a la entrada correspondiente en `projects.ts`.
-- **Brevo**: solo Resend está cableado como proveedor de correo.
 
 ## Diseñado y desarrollado por Fabián Sojo.
