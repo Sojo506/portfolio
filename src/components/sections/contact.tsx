@@ -1,14 +1,55 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import { useEffect, useRef, useState } from "react";
 import { Mail, MapPin, MessageCircle } from "lucide-react";
 import { SectionHeading } from "@/components/common/section-heading";
 import { FadeIn } from "@/components/common/fade-in";
-import { ContactForm } from "@/components/contact/contact-form";
 import { siteConfig } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/dictionary";
 
+const ContactForm = dynamic(() =>
+  import("@/components/contact/contact-form").then((mod) => mod.ContactForm),
+);
+
+function ContactFormSkeleton() {
+  return (
+    <div className="space-y-6" aria-hidden="true">
+      <div className="grid gap-6 sm:grid-cols-2">
+        {Array.from({ length: 6 }).map((_, i) => (
+          <div key={i} className="space-y-2">
+            <div className="h-4 w-20 animate-pulse rounded bg-muted" />
+            <div className="h-9 w-full animate-pulse rounded-md bg-muted" />
+          </div>
+        ))}
+      </div>
+      <div className="h-24 w-full animate-pulse rounded-md bg-muted" />
+      <div className="h-9 w-32 animate-pulse rounded-md bg-muted" />
+    </div>
+  );
+}
+
 export function Contact() {
   const t = useTranslation();
+  const formAreaRef = useRef<HTMLDivElement>(null);
+  const [formVisible, setFormVisible] = useState(false);
+
+  useEffect(() => {
+    const node = formAreaRef.current;
+    if (!node) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setFormVisible(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "400px" },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section id="contacto">
@@ -61,8 +102,8 @@ export function Contact() {
           </FadeIn>
 
           <FadeIn delay={0.1}>
-            <div className="rounded-xl border p-6 sm:p-8">
-              <ContactForm />
+            <div ref={formAreaRef} className="rounded-xl border p-6 sm:p-8">
+              {formVisible ? <ContactForm /> : <ContactFormSkeleton />}
             </div>
           </FadeIn>
         </div>

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,15 +7,9 @@ import { GithubIcon, InstagramIcon, LinkedinIcon } from "@/components/common/ico
 import { useLanguage } from "@/components/common/language-provider";
 import { siteConfig } from "@/lib/constants";
 import { useTranslation } from "@/lib/i18n/dictionary";
+import { cn } from "@/lib/utils";
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 16 },
-  visible: (delay = 0) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, delay, ease: "easeOut" as const },
-  }),
-};
+const entrance = "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:fill-mode-both motion-safe:duration-500 motion-safe:ease-out";
 
 export function Hero() {
   const t = useTranslation();
@@ -29,42 +22,36 @@ export function Hero() {
     >
       <div className="mx-auto grid max-w-6xl gap-12 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:px-8 lg:py-32">
         <div>
-          <motion.p
-            initial="hidden"
-            animate="visible"
-            custom={0}
-            variants={fadeUp}
-            className="text-sm font-medium tracking-[0.14em] text-muted-foreground uppercase"
+          <p
+            className={cn(
+              "text-sm font-medium tracking-[0.14em] text-muted-foreground uppercase",
+              entrance,
+            )}
           >
             {t.hero.tag}
-          </motion.p>
+          </p>
 
-          <motion.h1
-            initial="hidden"
-            animate="visible"
-            custom={0.08}
-            variants={fadeUp}
-            className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl"
-          >
+          {/* Not animated: this is the LCP element — must paint immediately, not wait on a CSS/JS entrance transition. */}
+          <h1 className="mt-5 text-4xl font-semibold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {t.hero.title}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            initial="hidden"
-            animate="visible"
-            custom={0.16}
-            variants={fadeUp}
-            className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg"
+          <p
+            className={cn(
+              "mt-6 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg",
+              entrance,
+              "motion-safe:delay-75",
+            )}
           >
             {t.hero.description}
-          </motion.p>
+          </p>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            custom={0.24}
-            variants={fadeUp}
-            className="mt-9 flex flex-wrap items-center gap-3"
+          <div
+            className={cn(
+              "mt-9 flex flex-wrap items-center gap-3",
+              entrance,
+              "motion-safe:delay-150",
+            )}
           >
             <Button asChild size="lg" className="gap-1.5">
               <Link href="/projects">
@@ -80,14 +67,14 @@ export function Hero() {
                 {t.hero.downloadCv}
               </a>
             </Button>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial="hidden"
-            animate="visible"
-            custom={0.32}
-            variants={fadeUp}
-            className="mt-10 flex items-center gap-4 text-muted-foreground"
+          <div
+            className={cn(
+              "mt-10 flex items-center gap-4 text-muted-foreground",
+              entrance,
+              "motion-safe:delay-200",
+            )}
           >
             <a
               href={siteConfig.github}
@@ -123,14 +110,14 @@ export function Hero() {
             >
               <Mail className="h-[18px] w-[18px]" />
             </a>
-          </motion.div>
+          </div>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
-          className="relative mx-auto w-full max-w-sm rounded-xl border bg-card/60 p-6 shadow-sm backdrop-blur-sm"
+        <div
+          className={cn(
+            "relative mx-auto w-full max-w-sm rounded-xl border bg-card/60 p-6 shadow-sm backdrop-blur-sm",
+            "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-6 motion-safe:fill-mode-both motion-safe:duration-700 motion-safe:delay-200 motion-safe:ease-out",
+          )}
         >
           <div className="flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full bg-muted-foreground/30" />
@@ -164,7 +151,7 @@ export function Hero() {
             <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
             {t.hero.available}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
